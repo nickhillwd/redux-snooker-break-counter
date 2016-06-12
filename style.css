@@ -1,0 +1,60 @@
+.break-display{
+    height: 100px;
+    width: 150px;
+    color: #fff;
+    font-size: 25px;
+    background-color: #000;
+    border-radius: 5%;
+    line-height: 100px;
+    text-align: center;
+}
+
+.ball {
+    color: #fff;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    line-height: 75px;
+    text-align: center;
+}
+
+.white-ball{
+    color: #000;
+    border: solid 2px;
+}
+
+.red-ball {
+    background-color: #ff0000;
+}
+
+.yellow-ball{
+    background-color: #ffff00;
+}
+
+.green-ball{
+    background-color: #008000;
+}
+
+.brown-ball{
+    background-color: #8b4513;
+}
+
+.blue-ball{
+    background-color: #0000ff;
+}
+
+.pink-ball{
+    background-color: #ff1493;
+}
+
+.black-ball{
+    background-color: #000000;
+}
+
+.submit-button{
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    line-height: 75px;
+    text-align: center;
+}

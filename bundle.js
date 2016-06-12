@@ -21908,32 +21908,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// export const initialState = [{
-	//   currentBreak: 0}];
-	//
-	// function scoreBoardReducer(state = initialState, action) {
-	//   switch (action.type) {
-	//     case 'BALL_POT':
-	//       return Object.assign({}, state, {
-	//         currentBreak: state.currentBreak + action.value
-	//       });
-	//     default:
-	//       return state;
-	//   }
-	// }
-	//
-	// function scoreApp(state = {}, action){
-	//   return {
-	//     currentBreak: [scoreBoard(state, action)]
-	//   }
-	// }
-	//
-	// export default scoreApp;
-	//
-	// //on action we will have action.ballValue
-	// //todo refactor state ={} or needs initialState ln 15
-	//
-
 	var initialState = exports.initialState = {
 	  currentBreak: 0
 	};
@@ -22046,20 +22020,7 @@
 	      currentBreak
 	    )
 	  );
-	} // import React, { PropTypes } from 'react';
-	//
-	// const ScoreBoard = ( {currentBreak} ) => (
-	//   console.log(currentBreak),
-	//   <div className="break-display">
-	//     <h1>{ currentBreak }</h1>
-	//   </div>
-	// );
-	//
-	// ScoreBoard.propTypes = {
-	//   currentBreak: PropTypes.array.isRequired
-	// };
-	//
-	// export default ScoreBoard;
+	}
 
 /***/ },
 /* 194 */
