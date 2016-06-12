@@ -60,7 +60,7 @@
 
 	var _reducer2 = _interopRequireDefault(_reducer);
 
-	var _App = __webpack_require__(191);
+	var _App = __webpack_require__(194);
 
 	var _App2 = _interopRequireDefault(_App);
 
@@ -21898,18 +21898,19 @@
 	exports.initialState = undefined;
 	exports.default = scoreBoardReducer;
 
-	var _deepFreeze = __webpack_require__(194);
+	var _deepFreeze = __webpack_require__(191);
 
 	var _deepFreeze2 = _interopRequireDefault(_deepFreeze);
 
-	var _lodash = __webpack_require__(195);
+	var _lodash = __webpack_require__(192);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var initialState = exports.initialState = {
-	  currentBreak: 0
+	  currentBreak: 0,
+	  lastBreak: 0
 	};
 
 	function scoreBoardReducer() {
@@ -21921,9 +21922,22 @@
 	  var newState = _lodash2.default.cloneDeep(state);
 
 	  switch (action.type) {
+
 	    case 'BALL_POT':
-	      newState.currentBreak += action.value;
-	      return newState;
+	      {
+	        console.log(arguments);
+	        newState.currentBreak += action.value;
+	        return newState;
+	      }
+
+	    case 'SUBMIT_BREAK':
+	      {
+	        console.log(arguments);
+	        newState.currentBreak = 0;
+	        newState.lastBreak = state.currentBreak;
+	        return newState;
+	      }
+
 	    default:
 	      return newState;
 	  }
@@ -21931,104 +21945,6 @@
 
 /***/ },
 /* 191 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _ScoreBoardContainer = __webpack_require__(192);
-
-	var _ScoreBoardContainer2 = _interopRequireDefault(_ScoreBoardContainer);
-
-	var _SnookerBallsContainer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../containers/SnookerBallsContainer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	var _SnookerBallsContainer2 = _interopRequireDefault(_SnookerBallsContainer);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var App = function App() {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(_ScoreBoardContainer2.default, null),
-	    _react2.default.createElement(_SnookerBallsContainer2.default, null)
-	  );
-	};
-
-	exports.default = App;
-
-/***/ },
-/* 192 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(181);
-
-	var _ScoreBoard = __webpack_require__(193);
-
-	var _ScoreBoard2 = _interopRequireDefault(_ScoreBoard);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    currentBreak: state.currentBreak
-	  };
-	};
-
-	var ScoreBoardContainer = (0, _reactRedux.connect)(mapStateToProps)(_ScoreBoard2.default);
-
-	exports.default = ScoreBoardContainer;
-
-/***/ },
-/* 193 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = ScoreBoard;
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function ScoreBoard(_ref) {
-	  var currentBreak = _ref.currentBreak;
-
-	  return _react2.default.createElement(
-	    "div",
-	    { className: "break-display" },
-	    _react2.default.createElement(
-	      "h1",
-	      null,
-	      currentBreak
-	    )
-	  );
-	}
-
-/***/ },
-/* 194 */
 /***/ function(module, exports) {
 
 	module.exports = function deepFreeze (o) {
@@ -22048,7 +21964,7 @@
 
 
 /***/ },
-/* 195 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -38456,10 +38372,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(196)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(193)(module), (function() { return this; }())))
 
 /***/ },
-/* 196 */
+/* 193 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -38473,6 +38389,340 @@
 		return module;
 	}
 
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ScoreBoardContainer = __webpack_require__(195);
+
+	var _ScoreBoardContainer2 = _interopRequireDefault(_ScoreBoardContainer);
+
+	var _SnookerBallsContainer = __webpack_require__(197);
+
+	var _SnookerBallsContainer2 = _interopRequireDefault(_SnookerBallsContainer);
+
+	var _SubmitBreakContainer = __webpack_require__(200);
+
+	var _SubmitBreakContainer2 = _interopRequireDefault(_SubmitBreakContainer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var App = function App() {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(_ScoreBoardContainer2.default, null),
+	    _react2.default.createElement(_SnookerBallsContainer2.default, null),
+	    _react2.default.createElement(_SubmitBreakContainer2.default, null)
+	  );
+	};
+
+	exports.default = App;
+
+/***/ },
+/* 195 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(181);
+
+	var _ScoreBoard = __webpack_require__(196);
+
+	var _ScoreBoard2 = _interopRequireDefault(_ScoreBoard);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    currentBreak: state.currentBreak
+	  };
+	};
+
+	var ScoreBoardContainer = (0, _reactRedux.connect)(mapStateToProps)(_ScoreBoard2.default);
+
+	exports.default = ScoreBoardContainer;
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = ScoreBoard;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function ScoreBoard(_ref) {
+	  var currentBreak = _ref.currentBreak;
+
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "break-display" },
+	    _react2.default.createElement(
+	      "h1",
+	      null,
+	      currentBreak
+	    )
+	  );
+	}
+
+/***/ },
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(181);
+
+	var _SnookerBalls = __webpack_require__(198);
+
+	var _SnookerBalls2 = _interopRequireDefault(_SnookerBalls);
+
+	var _actions = __webpack_require__(199);
+
+	var actions = _interopRequireWildcard(_actions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    currentBreak: state.currentBreak
+	  };
+	};
+
+	var MapDispatchToProps = function MapDispatchToProps(dispatch) {
+	  return {
+	    onBallPot: function onBallPot(value) {
+	      dispatch(actions.ballPot(value));
+	    }
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, MapDispatchToProps)(_SnookerBalls2.default);
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = BallButtons;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function BallButtons(_ref) {
+	  var onBallPot = _ref.onBallPot;
+
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "ball-buttons" },
+	    _react2.default.createElement(
+	      "button",
+	      { className: "ball white-ball", onClick: function onClick() {
+	          onBallPot(4);
+	        } },
+	      "WHITE"
+	    ),
+	    _react2.default.createElement(
+	      "button",
+	      { className: "ball red-ball", onClick: function onClick() {
+	          onBallPot(1);
+	        } },
+	      "RED"
+	    ),
+	    _react2.default.createElement(
+	      "button",
+	      { className: "ball yellow-ball", onClick: function onClick() {
+	          onBallPot(2);
+	        } },
+	      "YELLOW"
+	    ),
+	    _react2.default.createElement(
+	      "button",
+	      { className: "ball green-ball", onClick: function onClick() {
+	          onBallPot(3);
+	        } },
+	      "GREEN"
+	    ),
+	    _react2.default.createElement(
+	      "button",
+	      { className: "ball brown-ball", onClick: function onClick() {
+	          onBallPot(4);
+	        } },
+	      "BROWN"
+	    ),
+	    _react2.default.createElement(
+	      "button",
+	      { className: "ball blue-ball", onClick: function onClick() {
+	          onBallPot(5);
+	        } },
+	      "BLUE"
+	    ),
+	    _react2.default.createElement(
+	      "button",
+	      { className: "ball pink-ball", onClick: function onClick() {
+	          onBallPot(6);
+	        } },
+	      "PINK"
+	    ),
+	    _react2.default.createElement(
+	      "button",
+	      { className: "ball black-ball", onClick: function onClick() {
+	          onBallPot(7);
+	        } },
+	      "BLACK"
+	    )
+	  );
+	}
+
+/***/ },
+/* 199 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ballPot = ballPot;
+	exports.submitBreak = submitBreak;
+	var BALL_POT = exports.BALL_POT = 'BALL_POT';
+	var SUBMIT_BREAK = exports.SUBMIT_BREAK = 'SUBMIT_BREAK';
+
+	function ballPot(value) {
+	  return {
+	    type: 'BALL_POT',
+	    value: value
+	  };
+	}
+
+	function submitBreak(score) {
+	  return {
+	    type: 'SUBMIT_BREAK',
+	    score: score
+	  };
+	}
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(181);
+
+	var _SubmitBreak = __webpack_require__(201);
+
+	var _SubmitBreak2 = _interopRequireDefault(_SubmitBreak);
+
+	var _actions = __webpack_require__(199);
+
+	var actions = _interopRequireWildcard(_actions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    currentBreak: state.currentBreak
+	  };
+	};
+
+	var MapDispatchToProps = function MapDispatchToProps(dispatch) {
+	  return {
+	    onSubmitBreak: function onSubmitBreak(value) {
+	      dispatch(actions.submitBreak(value));
+	    }
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, MapDispatchToProps)(_SubmitBreak2.default);
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = SubmitBreak;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function SubmitBreak(_ref) {
+	  var onSubmitBreak = _ref.onSubmitBreak;
+
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "submit-button" },
+	    _react2.default.createElement(
+	      "button",
+	      { onClick: function onClick() {
+	          onSubmitBreak();
+	        } },
+	      "SUBMIT BREAK"
+	    )
+	  );
+	}
 
 /***/ }
 /******/ ]);
