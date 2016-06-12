@@ -1,6 +1,5 @@
-export const initialState = {
-  currentBreak: 0
-};
+export const initialState = [{
+  currentBreak: 0}];
 
 function scoreBoard(state = initialState, action) {
   switch (action.type) {
@@ -15,7 +14,7 @@ function scoreBoard(state = initialState, action) {
 
 function scoreApp(state = {}, action){
   return {
-    currentBreak: scoreBoard(state, action)
+    currentBreak: [scoreBoard(state, action)]
   }
 }
 
