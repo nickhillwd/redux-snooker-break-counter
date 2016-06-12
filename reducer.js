@@ -15,14 +15,14 @@ export default function scoreBoardReducer (state = initialState, action){
 
     case 'BALL_POT':
     {
-      console.log(arguments);
       newState.currentBreak += action.value;
       return newState;
     }
 
     case 'SUBMIT_BREAK':
     {
-      console.log(arguments);
+      console.log("state: ", state);
+      console.log("newState: ", newState);
       newState.currentBreak = 0;
       newState.lastBreak = state.currentBreak;
       return newState;
