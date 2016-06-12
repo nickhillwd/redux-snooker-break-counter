@@ -1,14 +1,24 @@
-import React, { PropTypes } from 'react';
+// import React, { PropTypes } from 'react';
+//
+// const ScoreBoard = ( {currentBreak} ) => (
+//   console.log(currentBreak),
+//   <div className="break-display">
+//     <h1>{ currentBreak }</h1>
+//   </div>
+// );
+//
+// ScoreBoard.propTypes = {
+//   currentBreak: PropTypes.array.isRequired
+// };
+//
+// export default ScoreBoard;
 
-const ScoreBoard = ( {currentBreak} ) => (
-  console.log(currentBreak),
-  <div className="break-display">
-    <h1>{ currentBreak }</h1>
-  </div>
-);
+import React from 'react';
 
-ScoreBoard.propTypes = {
-  currentBreak: PropTypes.array.isRequired
-};
-
-export default ScoreBoard;
+export default function ScoreBoard( { currentBreak } ){
+  return(
+    <div className="break-display">
+      <h1>{ currentBreak }</h1>
+    </div>
+  )
+}

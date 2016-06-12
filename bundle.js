@@ -22026,6 +22026,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = ScoreBoard;
 
 	var _react = __webpack_require__(1);
 
@@ -22033,9 +22034,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ScoreBoard = function ScoreBoard(_ref) {
+	function ScoreBoard(_ref) {
 	  var currentBreak = _ref.currentBreak;
-	  return console.log(currentBreak), _react2.default.createElement(
+
+	  return _react2.default.createElement(
 	    "div",
 	    { className: "break-display" },
 	    _react2.default.createElement(
@@ -22044,13 +22046,20 @@
 	      currentBreak
 	    )
 	  );
-	};
-
-	ScoreBoard.propTypes = {
-	  currentBreak: _react.PropTypes.array.isRequired
-	};
-
-	exports.default = ScoreBoard;
+	} // import React, { PropTypes } from 'react';
+	//
+	// const ScoreBoard = ( {currentBreak} ) => (
+	//   console.log(currentBreak),
+	//   <div className="break-display">
+	//     <h1>{ currentBreak }</h1>
+	//   </div>
+	// );
+	//
+	// ScoreBoard.propTypes = {
+	//   currentBreak: PropTypes.array.isRequired
+	// };
+	//
+	// export default ScoreBoard;
 
 /***/ },
 /* 194 */
