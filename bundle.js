@@ -38503,7 +38503,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var mapStateToProps = function mapStateToProps(state) {
-	  return {};
+	  return {
+	    currentBreak: state.currentBreak
+	  };
 	};
 
 	var MapDispatchToProps = function MapDispatchToProps(dispatch) {

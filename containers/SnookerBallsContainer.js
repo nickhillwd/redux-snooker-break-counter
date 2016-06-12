@@ -5,7 +5,7 @@ import * as actions from '../actions';
 
 const mapStateToProps = (state) => {
   return{
-
+    currentBreak: state.currentBreak
   };
 };
 
