@@ -21909,7 +21909,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var initialState = exports.initialState = {
-	  currentBreak: 0
+	  currentBreak: 0,
+	  lastBreak: 0
 	};
 
 	function scoreBoardReducer() {
@@ -21921,9 +21922,22 @@
 	  var newState = _lodash2.default.cloneDeep(state);
 
 	  switch (action.type) {
+
 	    case 'BALL_POT':
-	      newState.currentBreak += action.value;
-	      return newState;
+	      {
+	        console.log(arguments);
+	        newState.currentBreak += action.value;
+	        return newState;
+	      }
+
+	    case 'SUBMIT_BREAK':
+	      {
+	        console.log(arguments);
+	        newState.currentBreak = 0;
+	        newState.lastBreak = state.currentBreak;
+	        return newState;
+	      }
+
 	    default:
 	      return newState;
 	  }
@@ -38398,6 +38412,10 @@
 
 	var _SnookerBallsContainer2 = _interopRequireDefault(_SnookerBallsContainer);
 
+	var _SubmitBreakContainer = __webpack_require__(200);
+
+	var _SubmitBreakContainer2 = _interopRequireDefault(_SubmitBreakContainer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var App = function App() {
@@ -38405,7 +38423,8 @@
 	    'div',
 	    null,
 	    _react2.default.createElement(_ScoreBoardContainer2.default, null),
-	    _react2.default.createElement(_SnookerBallsContainer2.default, null)
+	    _react2.default.createElement(_SnookerBallsContainer2.default, null),
+	    _react2.default.createElement(_SubmitBreakContainer2.default, null)
 	  );
 	};
 
@@ -38592,7 +38611,7 @@
 	    ),
 	    _react2.default.createElement(
 	      "button",
-	      { className: "ball black-Ball", onClick: function onClick() {
+	      { className: "ball black-ball", onClick: function onClick() {
 	          onBallPot(7);
 	        } },
 	      "BLACK"
@@ -38626,6 +38645,83 @@
 	    type: 'SUBMIT_BREAK',
 	    score: score
 	  };
+	}
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(181);
+
+	var _SubmitBreak = __webpack_require__(201);
+
+	var _SubmitBreak2 = _interopRequireDefault(_SubmitBreak);
+
+	var _actions = __webpack_require__(199);
+
+	var actions = _interopRequireWildcard(_actions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    currentBreak: state.currentBreak
+	  };
+	};
+
+	var MapDispatchToProps = function MapDispatchToProps(dispatch) {
+	  return {
+	    onSubmitBreak: function onSubmitBreak(value) {
+	      dispatch(actions.submitBreak(value));
+	    }
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, MapDispatchToProps)(_SubmitBreak2.default);
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = SubmitBreak;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function SubmitBreak(_ref) {
+	  var onSubmitBreak = _ref.onSubmitBreak;
+
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "submit-button" },
+	    _react2.default.createElement(
+	      "button",
+	      { onClick: function onClick() {
+	          onSubmitBreak();
+	        } },
+	      "SUBMIT BREAK"
+	    )
+	  );
 	}
 
 /***/ }

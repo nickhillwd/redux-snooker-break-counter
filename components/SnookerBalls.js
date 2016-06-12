@@ -31,7 +31,7 @@ export default function BallButtons ( {onBallPot} ){
         PINK
       </button>
 
-      <button className="ball black-Ball" onClick={() => { onBallPot(7) }}>
+      <button className="ball black-ball" onClick={() => { onBallPot(7) }}>
         BLACK
       </button>
     </div>
