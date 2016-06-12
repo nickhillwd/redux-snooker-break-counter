@@ -8,8 +8,8 @@ const mapStateToProps = (state) => {
   }
 };
 
-const ScoreBoardDiv = connect(
+const ScoreBoardContainer = connect(
   mapStateToProps
 )(ScoreBoard);
 
-export default ScoreBoardDiv;
+export default ScoreBoardContainer;

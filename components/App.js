@@ -1,9 +1,11 @@
 import React from 'react';
-import ScoreBoardDiv from '../containers/ScoreBoardContainer';
+import ScoreBoardContainer from '../containers/ScoreBoardContainer';
+import SnookerBallsContainer from '../containers/SnookerBallsContainer';
 
 const App = () => (
   <div>
-    <ScoreBoardDiv />
+    <ScoreBoardContainer />
+    <SnookerBallsContainer />
   </div>
 );
 
