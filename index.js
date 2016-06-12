@@ -3,10 +3,10 @@ import {createStore} from 'redux';
 import { render } from 'react-dom';
 import {Provider} from 'react-redux';
 
-import scoreApp from './reducer.js';
+import scoreBoardReducer from './reducer.js';
 import App from './components/App.js';
 
-let store = createStore(scoreApp);
+let store = createStore(scoreBoardReducer);
 
 render(
   <Provider store={store}>
