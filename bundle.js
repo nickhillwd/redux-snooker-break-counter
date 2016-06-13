@@ -38420,6 +38420,10 @@
 
 	var _SubmitBreakContainer2 = _interopRequireDefault(_SubmitBreakContainer);
 
+	var _StatsContainer = __webpack_require__(202);
+
+	var _StatsContainer2 = _interopRequireDefault(_StatsContainer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var App = function App() {
@@ -38428,7 +38432,8 @@
 	    null,
 	    _react2.default.createElement(_ScoreBoardContainer2.default, null),
 	    _react2.default.createElement(_SnookerBallsContainer2.default, null),
-	    _react2.default.createElement(_SubmitBreakContainer2.default, null)
+	    _react2.default.createElement(_SubmitBreakContainer2.default, null),
+	    _react2.default.createElement(_StatsContainer2.default, null)
 	  );
 	};
 
@@ -38725,6 +38730,70 @@
 	          onSubmitBreak(currentBreak);
 	        } },
 	      "SUBMIT BREAK"
+	    )
+	  );
+	}
+
+/***/ },
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(181);
+
+	var _Stats = __webpack_require__(203);
+
+	var _Stats2 = _interopRequireDefault(_Stats);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    lastBreak: state.lastBreak
+	  };
+	};
+
+	var StatsContainer = (0, _reactRedux.connect)(mapStateToProps)(_Stats2.default);
+
+	exports.default = StatsContainer;
+
+/***/ },
+/* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = Stats;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function Stats(_ref) {
+	  var lastBreak = _ref.lastBreak;
+
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "stats-centre" },
+	    _react2.default.createElement(
+	      "h3",
+	      null,
+	      "Last Break: ",
+	      lastBreak
 	    )
 	  );
 	}
