@@ -21,10 +21,11 @@ export default function scoreBoardReducer (state = initialState, action){
 
     case 'SUBMIT_BREAK':
     {
+      console.log(typeof action.score);
       console.log("state: ", state);
       console.log("newState: ", newState);
+      newState.lastBreak = action.score;
       newState.currentBreak = 0;
-      newState.lastBreak = state.currentBreak;
       return newState;
     }
 

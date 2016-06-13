@@ -21896,6 +21896,9 @@
 	  value: true
 	});
 	exports.initialState = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 	exports.default = scoreBoardReducer;
 
 	var _deepFreeze = __webpack_require__(191);
@@ -21931,10 +21934,11 @@
 
 	    case 'SUBMIT_BREAK':
 	      {
+	        console.log(_typeof(action.score));
 	        console.log("state: ", state);
 	        console.log("newState: ", newState);
+	        newState.lastBreak = action.score;
 	        newState.currentBreak = 0;
-	        newState.lastBreak = state.currentBreak;
 	        return newState;
 	      }
 
@@ -38709,6 +38713,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function SubmitBreak(_ref) {
+	  var currentBreak = _ref.currentBreak;
 	  var onSubmitBreak = _ref.onSubmitBreak;
 
 	  return _react2.default.createElement(
@@ -38717,7 +38722,7 @@
 	    _react2.default.createElement(
 	      "button",
 	      { onClick: function onClick() {
-	          onSubmitBreak();
+	          onSubmitBreak(currentBreak);
 	        } },
 	      "SUBMIT BREAK"
 	    )

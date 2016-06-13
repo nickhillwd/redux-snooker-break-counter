@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function SubmitBreak( { onSubmitBreak } ){
+export default function SubmitBreak( { currentBreak, onSubmitBreak } ){
   return(
     <div className="submit-button">
-      <button onClick={() => { onSubmitBreak() } } >
+      <button onClick={() => { onSubmitBreak(currentBreak) } } >
         SUBMIT BREAK
       </button>
     </div>
