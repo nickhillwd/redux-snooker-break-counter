@@ -23,8 +23,8 @@ export default function scoreBoardReducer (state = initialState, action){
       }else{
         newState.currentBreak += action.value;
         newState.lastBallPotted = action.value;
-        if (action.value == 1) newState.redBallCount -= 1;
-        if (state.redBallCount === 0 ) alert("Now on to the colours - no more reds left!");
+        if (action.value == 1) newState.redBallCount -= 1
+        if (state.redBallCount === 0) alert("Now on to the colours - no more reds left!");
       }
       return newState;
     }
