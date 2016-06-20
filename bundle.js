@@ -21955,18 +21955,25 @@
 	              }
 	              // LEGAL SHOTS;
 	              //record legal pot of a red ball
-	              else if (state.lastBallPotted === null || state.lastBallPotted !== "red" && action.ballColour !== "white") {
+	              // else if(state.lastBallPotted === null || state.lastBallPotted !== "red" && action.ballColour !== "white"){
+	              //   newState.currentBreak += action.value;
+	              //   if(action.ballColour === "red") newState.redBallCount -= 1;
+	              //   newState.lastBallPotted = action.ballColour;
+	              //   return newState
+	              // }
+	              // //record the legal pot
+	              // else if(state.lastBallPotted === "red" && action.ballColour !== "red" && action.ballColour !== "white"){
+	              //   newState.currentBreak += action.value;
+	              //   newState.lastBallPotted = action.ballColour;
+	              //   return newState;
+	              // }
+	              //record the legal pot
+	              else {
 	                  newState.currentBreak += action.value;
 	                  if (action.ballColour === "red") newState.redBallCount -= 1;
 	                  newState.lastBallPotted = action.ballColour;
 	                  return newState;
 	                }
-	                //record the legal pot
-	                else if (state.lastBallPotted === "red" && action.ballColour !== "red" && action.ballColour !== "white") {
-	                    newState.currentBreak += action.value;
-	                    newState.lastBallPotted = action.ballColour;
-	                    return newState;
-	                  }
 	        return newState;
 	      }
 
@@ -21985,11 +21992,6 @@
 	      return newState;
 	  }
 	}
-
-	// newState.currentBreak += action.value;
-	// newState.lastBallPotted = action.value;
-	// if (action.value === 1) newState.redBallCount -= 1;
-	// if (state.redBallCount === 0) alert("Now on to the colours - no more reds left!");
 
 /***/ },
 /* 191 */
