@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const MapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onBallPot: (value, ballColour) => {
       dispatch(actions.ballPot(value, ballColour));
@@ -19,5 +19,5 @@ const MapDispatchToProps = (dispatch) => {
 
 export default connect(
   mapStateToProps,
-  MapDispatchToProps
+  mapDispatchToProps
 )(SnookerBalls);

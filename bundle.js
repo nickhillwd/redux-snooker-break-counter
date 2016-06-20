@@ -21901,9 +21901,6 @@
 	  value: true
 	});
 	exports.initialState = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
 	exports.default = scoreBoardReducer;
 
 	var _deepFreeze = __webpack_require__(191);
@@ -21923,6 +21920,8 @@
 	  lastBreak: 0
 	};
 
+	var stateLog = [];
+
 	function scoreBoardReducer() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
 	  var action = arguments[1];
@@ -21939,52 +21938,63 @@
 	        //pot red ball first to begin a break
 	        if (state.lastBallPotted === null && action.ballColour !== "red") {
 	          alert("You must pot a red to begin a break");
-	          // break;
 	        }
 	        //not allow 2 colours in a row
 	        else if (state.lastBallPotted !== "red" && action.ballColour !== "white" && action.ballColour !== "red") {
 	            alert("You cannot pot two colours in a row, must be a red ball");
-	            // break;
 	          }
 	          //not allow 2 reds in a row
 	          else if (state.lastBallPotted === "red" && action.ballColour === "red") {
 	              alert("You must pot a colour next or it's a foul");
-	              // break;
 	            } else if (action.ballColour === "white") {
-	                alert("Foul ball");
+	              alert("Foul ball");
+	            }
+	            // LEGAL SHOTS;
+	            //record legal pot of a red ball
+	            // else if(state.lastBallPotted === null || state.lastBallPotted !== "red" && action.ballColour !== "white"){
+	            //   newState.currentBreak += action.value;
+	            //   if(action.ballColour === "red") newState.redBallCount -= 1;
+	            //   newState.lastBallPotted = action.ballColour;
+	            //   return newState
+	            // }
+	            // //record the legal pot
+	            // else if(state.lastBallPotted === "red" && action.ballColour !== "red" && action.ballColour !== "white"){
+	            //   newState.currentBreak += action.value;
+	            //   newState.lastBallPotted = action.ballColour;
+	            //   return newState;
+	            // }
+	            //record the legal pot
+	            else {
+	                newState.currentBreak += action.value;
+	                newState.lastBallPotted = action.ballColour;
+	                if (action.ballColour === "red") newState.redBallCount -= 1;
+	                stateLog.push(newState);
+	                console.log(stateLog);
+	                return newState;
 	              }
-	              // LEGAL SHOTS;
-	              //record legal pot of a red ball
-	              // else if(state.lastBallPotted === null || state.lastBallPotted !== "red" && action.ballColour !== "white"){
-	              //   newState.currentBreak += action.value;
-	              //   if(action.ballColour === "red") newState.redBallCount -= 1;
-	              //   newState.lastBallPotted = action.ballColour;
-	              //   return newState
-	              // }
-	              // //record the legal pot
-	              // else if(state.lastBallPotted === "red" && action.ballColour !== "red" && action.ballColour !== "white"){
-	              //   newState.currentBreak += action.value;
-	              //   newState.lastBallPotted = action.ballColour;
-	              //   return newState;
-	              // }
-	              //record the legal pot
-	              else {
-	                  newState.currentBreak += action.value;
-	                  if (action.ballColour === "red") newState.redBallCount -= 1;
-	                  newState.lastBallPotted = action.ballColour;
-	                  return newState;
-	                }
+	        stateLog.push(newState);
+	        console.log(stateLog);
 	        return newState;
 	      }
 
 	    case 'SUBMIT_BREAK':
 	      {
-	        console.log(_typeof(action.score));
-	        console.log("state: ", state);
-	        console.log("newState: ", newState);
 	        newState.lastBreak = action.score;
 	        newState.currentBreak = 0;
 	        newState.lastBallPotted = null;
+	        stateLog.push(newState);
+	        console.log(stateLog);
+	        return newState;
+	      }
+
+	    case 'UNDO_LAST_SHOT':
+	      {
+	        stateLog.pop();
+	        var oldState = _lodash2.default.last(stateLog);
+	        newState.currentBreak = oldState.currentBreak;
+	        newState.lastBallPotted = oldState.lastBallPotted;
+	        newState.redBallCount = oldState.redBallCount;
+	        newState.lastBreak = oldState.lastBreak;
 	        return newState;
 	      }
 
@@ -38470,6 +38480,10 @@
 
 	var _StatsContainer2 = _interopRequireDefault(_StatsContainer);
 
+	var _UndoButtonContainer = __webpack_require__(204);
+
+	var _UndoButtonContainer2 = _interopRequireDefault(_UndoButtonContainer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var App = function App() {
@@ -38479,6 +38493,7 @@
 	    _react2.default.createElement(_ScoreBoardContainer2.default, null),
 	    _react2.default.createElement(_SnookerBallsContainer2.default, null),
 	    _react2.default.createElement(_SubmitBreakContainer2.default, null),
+	    _react2.default.createElement(_UndoButtonContainer2.default, null),
 	    _react2.default.createElement(_StatsContainer2.default, null)
 	  );
 	};
@@ -38582,7 +38597,7 @@
 	  };
 	};
 
-	var MapDispatchToProps = function MapDispatchToProps(dispatch) {
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    onBallPot: function onBallPot(value, ballColour) {
 	      dispatch(actions.ballPot(value, ballColour));
@@ -38590,7 +38605,7 @@
 	  };
 	};
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, MapDispatchToProps)(_SnookerBalls2.default);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_SnookerBalls2.default);
 
 /***/ },
 /* 198 */
@@ -38685,8 +38700,10 @@
 	});
 	exports.ballPot = ballPot;
 	exports.submitBreak = submitBreak;
+	exports.undoLastShot = undoLastShot;
 	var BALL_POT = exports.BALL_POT = 'BALL_POT';
 	var SUBMIT_BREAK = exports.SUBMIT_BREAK = 'SUBMIT_BREAK';
+	var UNDO_LAST_SHOT = exports.UNDO_LAST_SHOT = 'UNDO_LAST_SHOT';
 
 	function ballPot(value, ballColour) {
 	  return {
@@ -38700,6 +38717,12 @@
 	  return {
 	    type: 'SUBMIT_BREAK',
 	    score: score
+	  };
+	}
+
+	function undoLastShot() {
+	  return {
+	    type: 'UNDO_LAST_SHOT'
 	  };
 	}
 
@@ -38737,7 +38760,7 @@
 	  };
 	};
 
-	var MapDispatchToProps = function MapDispatchToProps(dispatch) {
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    onSubmitBreak: function onSubmitBreak(value) {
 	      dispatch(actions.submitBreak(value));
@@ -38745,7 +38768,7 @@
 	  };
 	};
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, MapDispatchToProps)(_SubmitBreak2.default);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_SubmitBreak2.default);
 
 /***/ },
 /* 201 */
@@ -38770,7 +38793,7 @@
 
 	  return _react2.default.createElement(
 	    "div",
-	    { className: "submit-button" },
+	    { className: "submit-button button" },
 	    _react2.default.createElement(
 	      "button",
 	      { onClick: function onClick() {
@@ -38841,6 +38864,82 @@
 	      null,
 	      "Last Break: ",
 	      lastBreak
+	    )
+	  );
+	}
+
+/***/ },
+/* 204 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(181);
+
+	var _UndoButton = __webpack_require__(205);
+
+	var _UndoButton2 = _interopRequireDefault(_UndoButton);
+
+	var _actions = __webpack_require__(199);
+
+	var actions = _interopRequireWildcard(_actions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  console.log('inside mapStateToProps');
+	  return {};
+	};
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    onUndoClick: function onUndoClick() {
+	      console.log(dispatch);
+	      dispatch(actions.undoLastShot());
+	    }
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_UndoButton2.default);
+
+/***/ },
+/* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = UndoButton;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function UndoButton(_ref) {
+	  var onUndoClick = _ref.onUndoClick;
+
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "undo-button button" },
+	    _react2.default.createElement(
+	      "button",
+	      { onClick: function onClick() {
+	          onUndoClick();
+	        } },
+	      "UNDO LAST SHOT"
 	    )
 	  );
 	}
