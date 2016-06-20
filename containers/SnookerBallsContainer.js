@@ -11,8 +11,8 @@ const mapStateToProps = (state) => {
 
 const MapDispatchToProps = (dispatch) => {
   return {
-    onBallPot: value => {
-      dispatch(actions.ballPot(value));
+    onBallPot: (value, ballColour) => {
+      dispatch(actions.ballPot(value, ballColour));
     }
   }
 };

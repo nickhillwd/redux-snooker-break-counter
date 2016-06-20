@@ -189,9 +189,6 @@
 	var queueIndex = -1;
 
 	function cleanUpNextTick() {
-	    if (!draining || !currentQueue) {
-	        return;
-	    }
 	    draining = false;
 	    if (currentQueue.length) {
 	        queue = currentQueue.concat(queue);
@@ -21810,11 +21807,19 @@
 	    arity: true
 	};
 
-	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent) {
+	var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
+
+	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
 	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
 	        var keys = Object.getOwnPropertyNames(sourceComponent);
-	        for (var i=0; i<keys.length; ++i) {
-	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
+
+	        /* istanbul ignore else */
+	        if (isGetOwnPropertySymbolsAvailable) {
+	            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
+	        }
+
+	        for (var i = 0; i < keys.length; ++i) {
+	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
 	                try {
 	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
 	                } catch (error) {
@@ -21930,13 +21935,13 @@
 
 	    case 'BALL_POT':
 	      {
-	        if (state.lastBallPotted === 1 && action.value <= 1) {
-	          alert("You must pot a color next - it's the rules!");
+	        if (state.lastBallPotted === null && action.ballColour !== "red") {
+	          alert("You must pot a red to begin");
 	          // return newState; I don't think i want to do anything with the state here
 	        } else {
 	            newState.currentBreak += action.value;
 	            newState.lastBallPotted = action.value;
-	            if (action.value == 1) newState.redBallCount -= 1;
+	            if (action.value === 1) newState.redBallCount -= 1;
 	            if (state.redBallCount === 0) alert("Now on to the colours - no more reds left!");
 	          }
 	        return newState;
@@ -38548,8 +38553,8 @@
 
 	var MapDispatchToProps = function MapDispatchToProps(dispatch) {
 	  return {
-	    onBallPot: function onBallPot(value) {
-	      dispatch(actions.ballPot(value));
+	    onBallPot: function onBallPot(value, ballColour) {
+	      dispatch(actions.ballPot(value, ballColour));
 	    }
 	  };
 	};
@@ -38582,56 +38587,56 @@
 	    _react2.default.createElement(
 	      "button",
 	      { className: "ball white-ball", onClick: function onClick() {
-	          onBallPot(4);
+	          onBallPot(4, "white");
 	        } },
 	      "WHITE"
 	    ),
 	    _react2.default.createElement(
 	      "button",
 	      { className: "ball red-ball", onClick: function onClick() {
-	          onBallPot(1);
+	          onBallPot(1, "red");
 	        } },
 	      "RED"
 	    ),
 	    _react2.default.createElement(
 	      "button",
 	      { className: "ball yellow-ball", onClick: function onClick() {
-	          onBallPot(2);
+	          onBallPot(2, "yellow");
 	        } },
 	      "YELLOW"
 	    ),
 	    _react2.default.createElement(
 	      "button",
 	      { className: "ball green-ball", onClick: function onClick() {
-	          onBallPot(3);
+	          onBallPot(3, "green");
 	        } },
 	      "GREEN"
 	    ),
 	    _react2.default.createElement(
 	      "button",
 	      { className: "ball brown-ball", onClick: function onClick() {
-	          onBallPot(4);
+	          onBallPot(4, "brown");
 	        } },
 	      "BROWN"
 	    ),
 	    _react2.default.createElement(
 	      "button",
 	      { className: "ball blue-ball", onClick: function onClick() {
-	          onBallPot(5);
+	          onBallPot(5, "blue");
 	        } },
 	      "BLUE"
 	    ),
 	    _react2.default.createElement(
 	      "button",
 	      { className: "ball pink-ball", onClick: function onClick() {
-	          onBallPot(6);
+	          onBallPot(6, "pink");
 	        } },
 	      "PINK"
 	    ),
 	    _react2.default.createElement(
 	      "button",
 	      { className: "ball black-ball", onClick: function onClick() {
-	          onBallPot(7);
+	          onBallPot(7, "black");
 	        } },
 	      "BLACK"
 	    )
@@ -38652,10 +38657,11 @@
 	var BALL_POT = exports.BALL_POT = 'BALL_POT';
 	var SUBMIT_BREAK = exports.SUBMIT_BREAK = 'SUBMIT_BREAK';
 
-	function ballPot(value) {
+	function ballPot(value, ballColour) {
 	  return {
 	    type: 'BALL_POT',
-	    value: value
+	    value: value,
+	    ballColour: ballColour
 	  };
 	}
 

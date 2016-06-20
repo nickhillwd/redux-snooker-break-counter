@@ -17,13 +17,13 @@ export default function scoreBoardReducer (state = initialState, action){
 
     case 'BALL_POT':
     {
-      if(state.lastBallPotted === 1 && action.value <= 1 ){
-        alert("You must pot a color next - it's the rules!");
+      if(state.lastBallPotted === null && action.ballColour !== "red" ){
+        alert("You must pot a red to begin");
         // return newState; I don't think i want to do anything with the state here
       }else{
         newState.currentBreak += action.value;
         newState.lastBallPotted = action.value;
-        if (action.value == 1) newState.redBallCount -= 1
+        if (action.value === 1) newState.redBallCount -= 1;
         if (state.redBallCount === 0) alert("Now on to the colours - no more reds left!");
       }
       return newState;
